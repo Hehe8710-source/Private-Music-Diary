@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>简易歌曲日记（网页版）</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+
+    <!-- ===== 主菜单：Welcome + 4 个大按钮 ===== -->
+    <section id="screen-home" class="screen active">
+        <div class="welcome-bar">
+            <h1>欢迎！</h1>
+        </div>
+        <div class="menu-panel">
+            <button class="menu-btn" id="btn-home-add">添加歌曲</button>
+            <button class="menu-btn" id="btn-home-comment">为歌曲写评论</button>
+            <button class="menu-btn" id="btn-home-display">显示所有歌曲</button>
+            <button class="menu-btn" id="btn-home-delete">删除歌曲</button>
+        </div>
+    </section>
+
+    <!-- ===== 添加歌曲界面 ===== -->
+    <section id="screen-add" class="screen">
+        <header class="screen-header">
+            <h2>添加歌曲</h2>
+            <button class="btn back-btn" data-back>返回</button>
+        </header>
+
+        <div class="card">
+            <div class="add-mode-bar">
+                <button class="mode-btn active" id="btn-add-single">单曲添加</button>
+                <button class="mode-btn" id="btn-add-bulk">批量导入歌单</button>
+            </div>
+
+            <!-- 单曲添加面板 -->
+            <div id="panel-add-single" class="add-panel active">
+                <form id="song-form" autocomplete="off">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="title">歌名 <span class="required">*</span></label>
+                            <input id="title" type="text" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="artist">歌手 <span class="required">*</span></label>
+                            <input id="artist" type="text" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">添加日期 <span class="required">*</span></label>
+                            <input id="date" type="date" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="score">评分（1–10）</label>
+                            <input id="score" type="number" min="1" max="10" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comment">评论</label>
+                        <textarea id="comment" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">添加</button>
+                    </div>
+                    <p class="hint">* 不允许重复歌曲（同一歌名 + 歌手）。</p>
+                </form>
+            </div>
+
+            <!-- 批量导入面板 -->
+            <div id="panel-add-bulk" class="add-panel">
+                <p class="hint">
+                    每一行代表一首歌，格式为：<br/>
+                    <strong>歌名 - 歌手</strong><br/>
+                    例如：<br/>
+                    <span class="mono">Fix You - Coldplay</span><br/>
+                    稍后会统一输入该歌单的日期。重复或无效的行会被跳过。
+                </p>
+
+                <div class="form-group" style="margin-top: 10px;">
+                    <textarea id="bulk-input" rows="10"
+                              placeholder="在这里粘贴或输入你的歌单，每一行一首歌，例如：&#10;Fix You - Coldplay&#10;Yellow - Coldplay"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn primary" id="btn-bulk-import">导入歌单</button>
+                    <button type="button" class="btn" id="btn-bulk-clear">清空文本</button>
+                </div>
+
+                <p id="bulk-result" class="hint" style="margin-top: 8px;"></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 显示歌曲界面 ===== -->
+    <section id="screen-display" class="screen">
+        <header class="screen-header">
+            <h2>显示所有歌曲</h2>
+            <button class="btn back-btn" data-back>返回</button>
+        </header>
+
+        <div class="card">
+            <div class="table-wrapper">
+                <table class="song-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>歌名</th>
+                        <th>歌手</th>
+                        <th>添加日期</th>
+                    </tr>
+                    </thead>
+                    <tbody id="display-tbody">
+                    <!-- filled by JS -->
+                    </tbody>
+                </table>
+                <p id="display-empty" class="empty-hint">目前还没有歌曲。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 评论界面 ===== -->
+    <section id="screen-comment" class="screen">
+        <header class="screen-header">
+            <h2>为歌曲写评论</h2>
+            <button class="btn back-btn" data-back>返回</button>
+        </header>
+
+        <div class="card">
+            <div class="table-wrapper">
+                <table class="song-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>歌名</th>
+                        <th>歌手</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="comment-tbody">
+                    <!-- filled by JS -->
+                    </tbody>
+                </table>
+                <p id="comment-empty" class="empty-hint">目前没有可以评论的歌曲。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 删除界面 ===== -->
+    <section id="screen-delete" class="screen">
+        <header class="screen-header">
+            <h2>删除歌曲</h2>
+            <button class="btn back-btn" data-back>返回</button>
+        </header>
+
+        <div class="card">
+            <div class="table-wrapper">
+                <table class="song-table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>歌名</th>
+                        <th>歌手</th>
+                        <th>添加日期</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="delete-tbody">
+                    <!-- filled by JS -->
+                    </tbody>
+                </table>
+                <p id="delete-empty" class="empty-hint">目前没有可以删除的歌曲。</p>
+            </div>
+
+            <div class="form-actions" style="margin-top: 10px;">
+                <button type="button" class="btn danger" id="btn-clear-all">清空全部歌曲</button>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

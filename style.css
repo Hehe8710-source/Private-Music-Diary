@@ -1,0 +1,320 @@
+:root {
+    --blue-bg: #4a83b8;
+    --blue-bar: #265b8f;
+    --card-bg: #ffffff;
+    --border: #cbd5e1;
+    --text-main: #111827;
+    --text-muted: #4b5563;
+    --btn-border: #6b7280;
+    --btn-bg: #ffffff;
+    --btn-bg-hover: #e5e7eb;
+    --accent: #2563eb;
+    --danger: #dc2626;
+    --danger-bg: #fee2e2;
+    --font-main: system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    background: var(--blue-bg);
+    color: var(--text-main);
+    font-size: 16px;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.app {
+    width: 100%;
+    max-width: 760px;
+    padding: 20px 16px 32px;
+}
+
+/* ===== 屏幕 ===== */
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+/* ===== Welcome 主界面 ===== */
+
+.welcome-bar {
+    background: var(--blue-bar);
+    border-radius: 3px;
+    padding: 16px;
+    text-align: center;
+    color: #f9fafb;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-bottom: 46px;
+}
+
+.menu-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+}
+
+.menu-btn {
+    width: 80%;
+    max-width: 480px;
+    padding: 16px 10px;
+    background: #ffffff;
+    border: 1px solid #8ca5c7;
+    border-radius: 3px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    box-shadow: 0 3px 0 rgba(40, 54, 79, 0.7);
+}
+
+.menu-btn:hover {
+    background: #f3f4f6;
+}
+
+/* ===== 其他界面 ===== */
+
+.screen-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: #f9fafb;
+}
+
+.screen-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border-radius: 3px;
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+}
+
+/* —— Add 界面的模式按钮 —— */
+
+.add-mode-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.mode-btn {
+    flex: 1;
+    border-radius: 2px;
+    border: 1px solid var(--btn-border);
+    background: #f3f4f6;
+    padding: 7px 0;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.mode-btn:hover {
+    background: #e5e7eb;
+}
+
+.mode-btn.active {
+    background: #e0ecff;
+    border-color: #60a5fa;
+    color: #1d4ed8;
+}
+
+/* Add 面板 */
+
+.add-panel {
+    display: none;
+}
+
+.add-panel.active {
+    display: block;
+}
+
+/* 表单 */
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media (min-width: 540px) {
+    .form-row {
+        flex-direction: row;
+    }
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+label {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.required {
+    color: #dc2626;
+}
+
+input,
+textarea {
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--accent);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.form-actions {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.btn {
+    border-radius: 2px;
+    border: 1px solid var(--btn-border);
+    background: var(--btn-bg);
+    padding: 7px 18px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--btn-bg-hover);
+}
+
+.btn.primary {
+    border-color: #60a5fa;
+    color: #1d4ed8;
+    background: #e0ecff;
+}
+
+.btn.primary:hover {
+    background: #d1e3ff;
+}
+
+.btn.back-btn {
+    min-width: 80px;
+}
+
+.btn.danger {
+    border-color: #fca5a5;
+    color: var(--danger);
+    background: var(--danger-bg);
+}
+
+.hint {
+    margin: 4px 0 0;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Courier New", monospace;
+    font-size: 0.8rem;
+}
+
+/* 表格 */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.song-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.song-table th,
+.song-table td {
+    border: 1px solid #e5e7eb;
+    padding: 7px 9px;
+    text-align: left;
+}
+
+.song-table thead {
+    background: #e5e7eb;
+}
+
+.song-table tbody tr:nth-child(even) {
+    background: #f9fafb;
+}
+
+.song-table tbody tr:hover {
+    background: #e0f2fe;
+}
+
+.empty-hint {
+    margin: 10px 0 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* 小按钮 */
+
+.action-btn {
+    border-radius: 2px;
+    border: 1px solid #9ca3af;
+    background: #f3f4f6;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.action-btn:hover {
+    background: #e5e7eb;
+}
+
+.action-btn.delete {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #b91c1c;
+}
+
+/* 歌名可点击 */
+
+.title-link {
+    color: #1d4ed8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.title-link:hover {
+    color: #1e40af;
+}
